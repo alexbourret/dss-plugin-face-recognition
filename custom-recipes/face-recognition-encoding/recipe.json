@@ -1,0 +1,42 @@
+{
+    "meta": {
+        "label": "Encoding",
+        "description": "Generate encoding for faces",
+        "icon": "fas fa-id-badge"
+    },
+
+    "kind": "PYTHON",
+    "selectableFromDataset": "input_A_role",
+    "selectableFromFolder": "input_A_role",
+    "inputRoles": [
+        {
+            "name": "input_A_role",
+            "label": "Source dataset or folder",
+            "description": "Folder or dataset containing the urls or image files of faces to process",
+            "arity": "UNARY",
+            "required": true,
+            "acceptsDataset": true,
+            "acceptsManagedFolder": true
+        }
+    ],
+
+    "outputRoles": [
+        {
+            "name": "main_output",
+            "label": "Encoding dataset",
+            "description": "Dataset where faces' encoding will be stored once processed",
+            "arity": "UNARY",
+            "required": false,
+            "acceptsDataset": true
+        }
+    ],
+    "params": [
+        {
+            "name": "url_column",
+            "label": "URLs column",
+            "type": "COLUMN",
+            "columnRole": "input_A_role"
+        }
+    ],
+    "resourceKeys": []
+}

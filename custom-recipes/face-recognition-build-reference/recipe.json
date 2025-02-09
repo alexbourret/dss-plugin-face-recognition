@@ -1,0 +1,63 @@
+{
+    "meta": {
+        "label": "Build reference",
+        "description": "Generate reference for faces",
+        "icon": "fas fa-id-card"
+    },
+
+    "kind": "PYTHON",
+    "selectableFromDataset": "input_A_role",
+    "selectableFromFolder": "input_A_role",
+    "inputRoles": [
+        {
+            "name": "input_A_role",
+            "label": "Source dataset of unknown encodings",
+            "description": "Folder or dataset containing the encodings of unknown faces",
+            "arity": "UNARY",
+            "required": true,
+            "acceptsDataset": true,
+            "acceptsManagedFolder": false
+        },
+        {
+            "name": "input_B_role",
+            "label": "Source dataset of known encodings",
+            "description": "Folder or dataset containing the encodings of known faces",
+            "arity": "UNARY",
+            "required": false,
+            "acceptsDataset": true,
+            "acceptsManagedFolder": false
+        }
+    ],
+
+    "outputRoles": [
+        {
+            "name": "main_output",
+            "label": "Encoding dataset",
+            "description": "Dataset where faces' encoding will be stored once processed",
+            "arity": "UNARY",
+            "required": false,
+            "acceptsDataset": true
+        }
+    ],
+    "params": [
+        {
+            "name": "unknown_encodings_column",
+            "label": "Uknown encodings column",
+            "type": "COLUMN",
+            "columnRole": "input_A_role"
+        },
+        {
+            "name": "known_encodings_column",
+            "label": "Known encodings column",
+            "type": "COLUMN",
+            "columnRole": "input_B_role"
+        },
+        {
+            "name": "known_reference_column",
+            "label": "Known references column",
+            "type": "COLUMN",
+            "columnRole": "input_B_role"
+        }
+    ],
+    "resourceKeys": []
+}
