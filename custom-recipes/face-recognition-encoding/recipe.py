@@ -12,9 +12,11 @@ from dataiku.customrecipe import get_output_names_for_role
 from dataiku.customrecipe import get_recipe_config
 from temp_utils import CustomTmpFile
 from plugin_details import get_initialization_string
+from safe_logger import SafeLogger
 
 
-print("{}".format(get_initialization_string()))
+logger = SafeLogger("face-recognition plugin")
+logger.info("{}".format(get_initialization_string()))
 
 input_A_names = get_input_names_for_role('input_A_role')
 input_A_datasets = [dataiku.Dataset(name) for name in input_A_names]
@@ -81,7 +83,7 @@ else:
             response = requests.get(url, stream=True)
             file_name = url.split('/')[-1]
             file_path = "/".join([temporary_location.name, file_name])
-            print("Creating temporary file '{}'".format(file_path))
+            logger.info("Creating temporary file '{}'".format(file_path))
             response.raw.decode_content = True
             with open(file_path, 'wb') as file_handle:
                 shutil.copyfileobj(response.raw, file_handle)

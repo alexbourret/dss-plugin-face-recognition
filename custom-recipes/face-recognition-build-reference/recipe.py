@@ -11,9 +11,11 @@ from dataiku.customrecipe import get_input_names_for_role
 from dataiku.customrecipe import get_output_names_for_role
 from dataiku.customrecipe import get_recipe_config
 from plugin_details import get_initialization_string
+from safe_logger import SafeLogger
 
 
-print("{}".format(get_initialization_string()))
+logger = SafeLogger("face-recognition plugin")
+logger.info("{}".format(get_initialization_string()))
 
 def get_index_of_first_true(booleans):
     # return the index of the first True in a list of booleans
@@ -37,7 +39,7 @@ output_A_datasets = [dataiku.Dataset(name) for name in output_A_names]
 
 config = get_recipe_config()
 
-print("config={}".format(config))
+logger.info("config={}".format(config))
 unknowns_to_process = input_A_datasets[0]
 unknowns_to_process_dataframe = unknowns_to_process.get_dataframe()
 unknown_encodings_column = config.get("unknown_encodings_column")
@@ -54,15 +56,12 @@ new_reference_dataframe = knowns_dataframe
 new_reference_dataframe["error"] = None
 if known_references_column not in new_reference_dataframe:
     new_reference_dataframe[known_references_column] = None
-print("ALX:starting by writing this:{}".format(new_reference_dataframe))
 new_reference_dataset.write_with_schema(new_reference_dataframe)
 
 known_encodings_raw_values = knowns_dataframe.get(known_encodings_column, [])
 knowns_encodings = []
 for known_encodings_raw_value in known_encodings_raw_values:
-    print("ALX:known_encodings_raw_value={}".format(type(known_encodings_raw_value)))
     if isinstance(known_encodings_raw_value, float) and math.isnan(known_encodings_raw_value):
-        print("ALX:nan")
         knowns_encodings.append(None)
     else:
         knowns_encodings.append(numpy.array(json.loads(known_encodings_raw_value)))

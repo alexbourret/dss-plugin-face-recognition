@@ -1,6 +1,9 @@
 import json
 from dataiku.customrecipe import get_recipe_resource
+from safe_logger import SafeLogger
 
+
+logger = SafeLogger("plugin details")
 
 def get_plugin_details():
     plugin_id = None
@@ -13,7 +16,7 @@ def get_plugin_details():
             plugin_id = plugin_json.get("id")
             plugin_version = plugin_json.get("version")
     except Exception as error:
-        print("Error: could not read plugin details= {}".format(error))
+        logger.info("Error: could not read plugin details= {}".format(error))
     return plugin_id, plugin_version
 
 
@@ -26,7 +29,7 @@ def get_beta_version():
             beta_json = json.loads(stream)
             beta_version = beta_json.get("version")
     except Exception as error:
-        print("Error: could not read plugin beta details: {}".format(error))
+        logger.info("Error: could not read plugin beta details: {}".format(error))
     return beta_version
 
 
